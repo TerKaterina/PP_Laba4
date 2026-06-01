@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
       
       - name: Install dependencies
         run: |
@@ -24,7 +24,7 @@ jobs:
           sudo apt-get install -y cmake ninja-build clang-tidy ccache lcov wrk
       
       - name: Cache ccache
-        uses: actions/cache@v6
+        uses: actions/cache@v4
         with:
           path: ~/.ccache
           key: ccache-${{ runner.os }}-${{ hashFiles('CMakeLists.txt', 'src/**') }}
@@ -61,6 +61,7 @@ jobs:
       - name: Static analysis (clang-tidy)
         run: |
           clang-tidy src/main.cpp -- -I.
+
   docker-build-push:
     needs: build-and-test
     if: github.ref == 'refs/heads/main'
